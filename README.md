@@ -16,23 +16,23 @@ To run this ARM Template, you would require the following handy that is specific
  ````
   "certificateUrlValue": {
             "type": "string",
-            "defaultValue": "https://<ur kv>.vault.azure.net/secrets/elksfclscert/9a36a8986cb041d5ba45089ffcdbd92d",
+            "defaultValue": "https://<ur kv>.vault.azure.net/secrets/<ur secret name>/9a36a8986cb041d5ba45089ffcdbd92d",
         },
   ````
 3. Thumbprint of the above certificate in Key Vault
 ````
     "certificateThumbprint": {
             "type": "string",
-            "defaultValue": "3B216BD748545BF017A12E6F6153C6349F20E4C1",
+            "defaultValue": "<certificate thumb print>",
         },
 ````
 4. Thumbprint of the Admin client certificate on the local Dev machine
 ````
  "clientCertificateStoreValue": {
             "type": "string",
-            "defaultValue": "B5F3BAFA31C937E94CF1AADA6877D5CE1F17DD7B",
+            "defaultValue": "<thumbprint admin client>",
         },
 ````
 After the Service Fabric Cluster is provisioned, launch the Explorer to check the Cluster Manifest. The Resource Monitor Service would be enabled. See below
 
-![GitHub Logo](/images/ResourceMonitorConfig.png)
+![GitHub Logo](/images/ResourceMonitorConfig.PNG)
