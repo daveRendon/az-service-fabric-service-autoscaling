@@ -93,17 +93,20 @@ The relevant config from the Service Manifest for the Application is a shown bel
  </ContainerHost>
 ````
 ### Connect to the Cluster and install the application ###
+````
 sfctl cluster select --endpoint https://<yourcluster>.<region>.cloudapp.azure.com:19080 --pem opennetclcert.pem --no-verify
 
 ./install.sh
-
-Ensure the Application is deployed and running by hitting the URL below.
-http://<yourcluster>.<region>.cloudapp.azure.com:5002/api/Operations 
-    
-### Enable the OMS Agent for Linux in the VM Scale set running Service Fabric
+````
+Ensure the Application is deployed and running - the URL in the sample deployed is -  http://auscsfcl0.southeastasia.cloudapp.azure.com:5002/api/Operations 
+In the Service Fabric Explorer, you will observe that only one container instance of this application would be running in one of the Nodes in the Service Fabric Cluster.
+### Enable the OMS Agent for Linux in the VM Scale set running Service Fabric ###
 This agent is required in the Nodes running the containerised Application, to capture the container logs and push them to the OMS Repository. These are to be activated after the application is deployed to the Cluster, since Docker has to be installed on the Nodes prior to activating this Extension. Refer to https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-containers for more details.
 From the Azure Portal, obtain the Workspace ID and Secret of the OMS Repository and execute the the CLI command below:
 
 ````
 az vmss extension set --name OmsAgentForLinux --publisher Microsoft.EnterpriseCloud.Monitoring --resource-group  <ur sf rg name> --vmss-name <ur sf vmss name> --settings "{'workspaceId':'<oms workspace id>'}" --protected-settings "{'workspaceKey':'<workspace key>'}"
 ````
+This actions takes a few minutes to complete.
+
+## Run a Load Test and test the service type level autoscaling ##
