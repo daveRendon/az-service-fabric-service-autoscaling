@@ -1,7 +1,7 @@
 # az-service-fabric-service-autoscaling
 Demonstration of Service level auto scaling in Azure Service Fabric.
 Azure Service Fabric provides orchestration services for Applications deployed as Docker containers, along with Service type instance level autoscaling. In this example, a Web API is built using ASP.NET Core 2.0, packaged using Docker containers for Linux and deployed to an Azure Service Cluster. 
-## Creating the Service Fabric Cluster
+## Creating the Service Fabric Cluster ## (mandatory step)
 This feature requires version 6.2.194.1+ of Azure Service Fabric, and enabling the 'Resource Monitor Service' on the Cluster. Since the Azure Portal does not provde an option enable this Service at this time, I am using an ARM Template (1-Nodetype-elb-SFCluster-oms.json) that deploys a cluster with this feature enabled. 
 *The VM Size of D1_v2 is used in this ARM Template to easily simulate the CPU load leading to an auto scale trigger*
 
@@ -40,7 +40,7 @@ Run the ARM Template to create the Cluster. After the Service Fabric Cluster is 
 
 <img src="./images/ResourceMonitorConfig.PNG" alt="drawing" height="350px"/>
 
-## Packaging the sample Application ##
+## Packaging the sample Application ## (Step not mandatory to run the sample. The container image is already packaged)
 An ASP.NET Core 2.0 Web API Project is packaged using Docker Container for Linux. It implements an API that performs a CPU intensive task that would be used to trigger a Service instance scale out action on the Service Fabric Cluster
 ````
  public class OperationsController : Controller
@@ -63,7 +63,7 @@ An ASP.NET Core 2.0 Web API Project is packaged using Docker Container for Linux
 ````
 The Docker container has been uploaded to Docker Hub and referenced in the Service Manifest of the Service Fabric Application.
 
-## Deploying the sample Application  to the Service Fabric Cluster ##
+## Deploying the sample Application  to the Service Fabric Cluster ## (Only an FYI, no action required to run the sample)
 Navigate to the folder where this Github Repository is cloned to. Use GitBash or other tools to deploy the Service Fabric Application. 
 - For autoscaling to work, the ServicePackageActivationMode needs to be set to 'Exclusive' (the default mode is 'shared')
 - The autoscale trigger rule and metric name and threshold values need to be specified. Refer to https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-resource-manager-autoscaling for details.
@@ -94,7 +94,7 @@ The relevant config from the Service Manifest for the Application is a shown bel
     <Commands></Commands>
  </ContainerHost>
 ````
-### Connect to the Cluster and install the application ###
+### Connect to the Cluster and install the application ### (mandatory step to run the sample)
 ````
 sfctl cluster select --endpoint https://<yourcluster>.<region>.cloudapp.azure.com:19080 --pem opennetclcert.pem --no-verify
 
@@ -104,7 +104,7 @@ Ensure the Application is running: url in this sample - http://auscsfcl0.southea
 
 In the Service Fabric Explorer, you will observe that only one container instance of this application would be running in one of the Nodes in the Service Fabric Cluster.
 
-### Enable the OMS Agent for Linux in the VM Scale set running Service Fabric ###
+### Enable the OMS Agent for Linux in the VM Scale set running Service Fabric ### (optional step. Required only to view the metrics in the OMS Repository)
 This agent is required in the Nodes running the containerised Application, to capture the container logs and push them to the OMS Repository. These are to be activated after the application is deployed to the Cluster, since Docker has to be installed on the Nodes prior to activating this Extension. Refer to https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-containers for more details. For the OMS Solution for Service Fabric, refer to https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-service-fabric#configure-log-analytics-to-collect-and-view-service-fabric-logs
 From the Azure Portal, obtain the Workspace ID and Secret of the OMS Repository and execute the the CLI command below:
 
@@ -113,15 +113,15 @@ az vmss extension set --name OmsAgentForLinux --publisher Microsoft.EnterpriseCl
 ````
 This actions takes a few minutes to complete.
 
-## Run a Load Test and test the service type level autoscaling ##
+## Run a Load Test and test the service type level autoscaling ## (mandatory step to run the sample)
 I have used Application Insights to configure a manual load test that hits the REST API url with 1500 concurrent users, and a test duration of 15 minutes.
 
 <img src="./images/perftest.PNG" alt="drawing" height="350px"/>
 
-## View the Service Fabric Exlporer
+## View the Service Fabric Exlporer (Required step)
 Observe the Service Fabric Explorer as the test progresses. After some time, you will notice additional container instances running in the other Nodes in the cluster. After the test completes, the additional container instances would get removed from the Explorer view.
 
-## View the Container logs and Node metrics of Service Fabric  as captured in OMS
+## View the Container logs and Node metrics of Service Fabric  as captured in OMS (optional step. required only to view the metrics in OMS)
 Launch the OMS Workspace and launch the Container Logs and Service Fabric Solutions (these were deployed in the OMS Workspace when the ARM Template was run).
 
 The screen shot below shows how over the course of the Load Test, the CPU consumed by the solitary container increases with load, and how the auto scale rule has fired to add additional container instances to take on the increased Load.
