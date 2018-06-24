@@ -114,4 +114,11 @@ This actions takes a few minutes to complete.
 
 ## Run a Load Test and test the service type level autoscaling ##
 I have used Application Insights to configure a manual load test that hits the REST API url with 1500 concurrent users, and a test duration of 15 minutes.
+
 <img src="./images/perftest.PNG" alt="drawing" height="350px"/>
+
+## View the Service Fabric Exlporer
+Observe the Service Fabric Explorer as the test progresses. After some time, you will notice additional container instances running in the other Nodes in the cluster. After the test completes, the additional container instances would get removed from the Explorer view.
+
+## View the Container logs and Node metrics of Service Fabric  as captured in OMS
+Launch the OMS Workspace and launch the Container Logs and Service Fabric Solutions (these were deployed in the OMS Workspace when the ARM Template was run)
