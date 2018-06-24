@@ -3,6 +3,7 @@ Demonstration of Service level auto scaling in Azure Service Fabric.
 Azure Service Fabric provides orchestration services for Applications deployed as Docker containers, along with Service type instance level autoscaling. In this example, a Web API is built using ASP.NET Core 2.0, packaged using Docker containers for Linux and deployed to an Azure Service Cluster. 
 ## Creating the Service Fabric Cluster
 This feature requires version 6.2.194.1+ of Azure Service Fabric, and enabling the 'Resource Monitor Service' on the Cluster. Since the Azure Portal does not provde an option enable this Service at this time, I am using an ARM Template (1-Nodetype-elb-SFCluster-oms.json) that deploys a cluster with this feature enabled. 
+*The VM Size of D1_v2 is used in this ARM Template to easily simulate the CPU load leading to an auto scale trigger*
 
 To run this ARM Template, you would require the following handy that is specific to your Azure Subscription:
 1. The Key Vault URL
@@ -98,8 +99,10 @@ sfctl cluster select --endpoint https://<yourcluster>.<region>.cloudapp.azure.co
 
 ./install.sh
 ````
-Ensure the Application is deployed and running - the URL in the sample deployed is -  http://auscsfcl0.southeastasia.cloudapp.azure.com:5002/api/Operations 
+Ensure the Application is running: url in this sample - http://auscsfcl0.southeastasia.cloudapp.azure.com:5002/api/Operations
+
 In the Service Fabric Explorer, you will observe that only one container instance of this application would be running in one of the Nodes in the Service Fabric Cluster.
+
 ### Enable the OMS Agent for Linux in the VM Scale set running Service Fabric ###
 This agent is required in the Nodes running the containerised Application, to capture the container logs and push them to the OMS Repository. These are to be activated after the application is deployed to the Cluster, since Docker has to be installed on the Nodes prior to activating this Extension. Refer to https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-containers for more details.
 From the Azure Portal, obtain the Workspace ID and Secret of the OMS Repository and execute the the CLI command below:
@@ -110,3 +113,5 @@ az vmss extension set --name OmsAgentForLinux --publisher Microsoft.EnterpriseCl
 This actions takes a few minutes to complete.
 
 ## Run a Load Test and test the service type level autoscaling ##
+I have used Application Insights to configure a manual load test that hits the REST API url with 1500 concurrent users, and a test duration of 15 minutes.
+<img src="./images/perftest.PNG" alt="drawing" height="350px"/>
