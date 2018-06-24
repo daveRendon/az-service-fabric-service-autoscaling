@@ -33,6 +33,32 @@ To run this ARM Template, you would require the following handy that is specific
             "defaultValue": "<thumbprint admin client>",
         },
 ````
-After the Service Fabric Cluster is provisioned, launch the Explorer to check the Cluster Manifest. The Resource Monitor Service would be enabled. See below
+*The ARM Template provisions an OMS Repository for Log analytics and monitoring. Ensure that OMS Service is available in the Azure region selected for the Service FAbric Cluster*
+Run the ARM Template to create the Cluster. After the Service Fabric Cluster is provisioned, launch the Explorer to check the Cluster Manifest. The Resource Monitor Service would be enabled. See below
 
 <img src="./images/ResourceMonitorConfig.PNG" alt="drawing" height="350px"/>
+
+## Packaging the sample Application ##
+An ASP.NET Core 2.0 Web API Project is packaged using Docker Container for Linux. It implements an API that performs a CPU intensive task that would be used to trigger a Service instance scale out action on the Service Fabric Cluster
+````
+ public class OperationsController : Controller
+    {
+        // GET api/Operations
+        [HttpGet]
+        public IEnumerable<string> Get
+        
+        {
+            double answer = 0;
+            for (int i = 0; i < 5000000; i++)
+            {
+                Random r = new Random();
+                double d = r.Next(1, 9999999);
+                answer = Math.Sqrt(d);
+            }
+            return new string[] { "Longrunning calculation", "answer :"+answer };
+        }
+    }
+````
+The Docker container has been uploaded to Docker Hub and referenced in the Service Manifest of the Service Fabric Application.
+
+## Deploying the sample Application  to the Service Fabric Cluster ##
