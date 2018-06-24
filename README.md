@@ -35,4 +35,4 @@ To run this ARM Template, you would require the following handy that is specific
 ````
 After the Service Fabric Cluster is provisioned, launch the Explorer to check the Cluster Manifest. The Resource Monitor Service would be enabled. See below
 
-![GitHub Logo](/images/ResourceMonitorConfig.PNG)
+<img src="./images/ResourceMonitorConfig.PNG" alt="drawing" height="300px"/>
