@@ -67,7 +67,8 @@ The Docker container has been uploaded to Docker Hub and referenced in the Servi
 Navigate to the folder where this Github Repository is cloned to. Use GitBash or other tools to deploy the Service Fabric Application. 
 - For autoscaling to work, the ServicePackageActivationMode needs to be set to 'Exclusive' (the default mode is 'shared')
 - The autoscale trigger rule and metric name and threshold values need to be specified. Refer to https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-resource-manager-autoscaling for details.
-- The instance count for the Service type is set to 1. When the auto scale kicks in, more instances of the container would be activated in the Service Fabric Cluster
+- The instance count for the Service type is set to 1. When the auto scale kicks in, more instances of the container would be activated in the Service Fabric Cluster.
+
 The section from Application Manifest file relevant to this configuration is shown below.
 ````
 <DefaultServices>
