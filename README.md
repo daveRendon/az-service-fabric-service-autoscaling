@@ -68,7 +68,6 @@ An ASP.NET Core 2.0 Web API Project is packaged using Docker Container for Linux
 The Docker container has been uploaded to Docker Hub and referenced in the Service Manifest of the Service Fabric Application.
 
 ## Deploying the sample Application  to the Service Fabric Cluster 
-*(Only an FYI, no action required to run the sample)*
 
 Navigate to the folder where this Github Repository is cloned to. Use GitBash or other tools to deploy the Service Fabric Application. 
 - For autoscaling to work, the ServicePackageActivationMode needs to be set to 'Exclusive' (the default mode is 'shared')
@@ -102,6 +101,7 @@ The relevant config from the Service Manifest for the Application is a shown bel
 ````
 ### Connect to the Cluster and install the application  
 *(mandatory step to run the sample)*
+
 ````
 sfctl cluster select --endpoint https://<yourcluster>.<region>.cloudapp.azure.com:19080 --pem opennetclcert.pem --no-verify
 
@@ -131,6 +131,7 @@ I have used Application Insights to configure a manual load test that hits the R
 
 ## View the Service Fabric Exlporer 
 *(Required step)*
+
 Observe the Service Fabric Explorer as the test progresses. After some time, you will notice additional container instances running in the other Nodes in the cluster. After the test completes, the additional container instances would get removed from the Explorer view.
 
 ## View the Container logs and Node metrics of Service Fabric  as captured in OMS 
