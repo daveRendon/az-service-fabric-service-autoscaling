@@ -104,7 +104,7 @@ Ensure the Application is running: url in this sample - http://auscsfcl0.southea
 In the Service Fabric Explorer, you will observe that only one container instance of this application would be running in one of the Nodes in the Service Fabric Cluster.
 
 ### Enable the OMS Agent for Linux in the VM Scale set running Service Fabric ###
-This agent is required in the Nodes running the containerised Application, to capture the container logs and push them to the OMS Repository. These are to be activated after the application is deployed to the Cluster, since Docker has to be installed on the Nodes prior to activating this Extension. Refer to https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-containers for more details.
+This agent is required in the Nodes running the containerised Application, to capture the container logs and push them to the OMS Repository. These are to be activated after the application is deployed to the Cluster, since Docker has to be installed on the Nodes prior to activating this Extension. Refer to https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-containers for more details. For the OMS Solution for Service Fabric, refer to https://docs.microsoft.com/en-us/azure/log-analytics/log-analytics-service-fabric#configure-log-analytics-to-collect-and-view-service-fabric-logs
 From the Azure Portal, obtain the Workspace ID and Secret of the OMS Repository and execute the the CLI command below:
 
 ````
@@ -121,4 +121,7 @@ I have used Application Insights to configure a manual load test that hits the R
 Observe the Service Fabric Explorer as the test progresses. After some time, you will notice additional container instances running in the other Nodes in the cluster. After the test completes, the additional container instances would get removed from the Explorer view.
 
 ## View the Container logs and Node metrics of Service Fabric  as captured in OMS
-Launch the OMS Workspace and launch the Container Logs and Service Fabric Solutions (these were deployed in the OMS Workspace when the ARM Template was run)
+Launch the OMS Workspace and launch the Container Logs and Service Fabric Solutions (these were deployed in the OMS Workspace when the ARM Template was run).
+
+The screen shot below shows how over the course of the Load Test, the CPU consumed by the solitary container increases with load, and how the auto scale rule has fired to add additional container instances to take on the increased Load.
+
