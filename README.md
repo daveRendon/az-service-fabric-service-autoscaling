@@ -34,7 +34,7 @@ To run this ARM Template, you would require the following handy that is specific
             "defaultValue": "<thumbprint admin client>",
         },
 ````
-*The ARM Template provisions an OMS Repository for Log analytics and monitoring. Ensure that OMS Service is available in the Azure region selected for the Service FAbric Cluster*
+*The ARM Template provisions an OMS Repository for Log analytics and monitoring, and to keep the Template simple, the Region used for it is the same as that of the Service Fabric Cluster itself. Ensure that OMS Service is available in the Azure region selected for the Service Fabric Cluster*
 
 Run the ARM Template to create the Cluster. After the Service Fabric Cluster is provisioned, launch the Explorer to check the Cluster Manifest. The Resource Monitor Service would be enabled. See below
 
