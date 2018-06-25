@@ -690,21 +690,6 @@
                                 }
                             },
                             {
-                                "name": "[concat(variables('vmNodeType0Name'),'OMS')]",
-                                "properties": {
-                                    "publisher": "Microsoft.EnterpriseCloud.Monitoring",
-                                    "type": "OmsAgentForLinux",
-                                    "typeHandlerVersion": "1.4",
-                                    "autoUpgradeMinorVersion": true,
-                                    "settings": {
-                                        "workspaceId": "[reference(resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspacename')), '2015-11-01-preview').customerId]"
-                                    },
-                                    "protectedSettings": {
-                                        "workspaceKey": "[listKeys(resourceId('Microsoft.OperationalInsights/workspaces/', parameters('omsWorkspacename')),'2015-11-01-preview').primarySharedKey]"
-                                    }
-                                }
-                            },
-                            {
                                 "name": "[concat('VMDiagnosticsVmExt','_vmNodeType0Name')]",
                                 "properties": {
                                     "type": "LinuxDiagnostic",

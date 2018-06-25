@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationManifest  ApplicationTypeName="sfrestapiappType" ApplicationTypeVersion="1.0.0"
+                      xmlns="http://schemas.microsoft.com/2011/01/fabric" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   
+   <ServiceManifestImport>
+      <ServiceManifestRef ServiceManifestName="sfapiPkg" ServiceManifestVersion="1.0.0" />
+        <Policies>
+            <ContainerHostPolicies CodePackageRef="Code">
+                <!--RepositoryCredentials AccountName="sfwebacr" Password="pwd" PasswordEncrypted="false"/-->
+            <PortBinding ContainerPort="80" EndpointRef="sfapiTypeEndpoint"/>
+            <HealthConfig IncludeDockerHealthStatusInSystemHealthReport="true" RestartContainerOnUnhealthyDockerHealthStatus="false" />
+            </ContainerHostPolicies>
+        </Policies>
+   </ServiceManifestImport>
+   
+   <DefaultServices>
+      <Service Name="sfapi" ServicePackageActivationMode="ExclusiveProcess">
+         <StatelessService ServiceTypeName="sfapiType" InstanceCount="1">
+            <SingletonPartition />
+            <ServiceScalingPolicies>
+                <ScalingPolicy>
+                    <AveragePartitionLoadScalingTrigger MetricName="servicefabric:/_CpuCores" LowerLoadThreshold="0.5" UpperLoadThreshold="0.70" ScaleIntervalInSeconds="120"/>
+                    <InstanceCountScalingMechanism MinInstanceCount="1" MaxInstanceCount="3" ScaleIncrement="1"/>
+                </ScalingPolicy>
+            </ServiceScalingPolicies>
+         </StatelessService>
+      </Service>
+   </DefaultServices>
+</ApplicationManifest>
