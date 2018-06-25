@@ -131,7 +131,7 @@ I have used Application Insights to configure a manual load test that hits the R
 
 <img src="./images/perftest.PNG" alt="drawing" height="350px"/>
 
-## View the Service Fabric Exlporer 
+## View the Service Fabric Explorer 
 *(Required step)*
 
 Observe the Service Fabric Explorer as the test progresses. After some time, you will notice additional container instances running in the other Nodes in the cluster. After the test completes, the additional container instances would get removed from the Explorer view.
@@ -141,5 +141,11 @@ Observe the Service Fabric Explorer as the test progresses. After some time, you
 
 Launch the OMS Workspace and launch the Container Logs and Service Fabric Solutions (these were deployed in the OMS Workspace when the ARM Template was run).
 
-The screen shot below shows how over the course of the Load Test, the CPU consumed by the solitary container increases with load, and how the auto scale rule has fired to add additional container instances to take on the increased Load.
+The screen shot below shows how over the course of the Load Test, additional container instances were deployed in the other Nodes in the Cluster, on trigger of the auto scaling rules.
+
+<img src="./images/autoscaleservice.PNG" alt="drawing" height="500px"/>
+
+Below is a screen shot from the Container log Solution in OMS, for the duration when the Load test was run.
+
+<img src="./images/Containerlogs.PNG" alt="drawing" height="500px"/>
 
