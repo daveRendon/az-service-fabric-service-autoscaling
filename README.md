@@ -118,7 +118,7 @@ In the Service Fabric Explorer, you will observe that only one container instanc
 (optional step. Required only to view the metrics in the OMS Repository)*
 Launch the OMS portal and in the Settings>Data>Linux Performance counters, select all the counters that you are interested in. See below.
 
-<img src="./images/PinuxPerfCounters.PNG" alt="drawing" height="350px"/>
+<img src="./images/PinuxPerfCounters.PNG" alt="drawing" height="500px"/>
 
 ### Enable the OMS Agent for Linux in the VM Scale set running Service Fabric 
 *(optional step. Required only to view the metrics in the OMS Repository)*
