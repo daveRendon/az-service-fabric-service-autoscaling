@@ -115,7 +115,7 @@ Ensure the Application is running: url in this sample - http://auscsfcl0.southea
 In the Service Fabric Explorer, you will observe that only one container instance of this application would be running in one of the Nodes in the Service Fabric Cluster.
 
 ### Configure OMS to capture all the performance metrics
-(optional step. Required only to view the metrics in the OMS Repository)*
+*(optional step. Required only to view the metrics in the OMS Repository)*
 Launch the OMS portal and in the Settings>Data>Linux Performance counters, select all the counters that you are interested in. See below.
 
 <img src="./images/PinuxPerfCounters.PNG" alt="drawing" height="500px"/>
