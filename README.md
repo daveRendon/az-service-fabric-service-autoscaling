@@ -1,6 +1,6 @@
 # azure service fabric - service autoscaling feature
 This article Demonstrates Service auto scaling in Azure Service Fabric.
-Azure Service Fabric provides orchestration services for Applications deployed as Docker containers, along with Service level autoscaling. In this example, a Web API is built using ASP.NET Core 2.0, packaged using Docker containers for Linux and deployed to an Azure Service Cluster. A Load Test is run on the REST API to generate CPU load on the Container hosting it, thereby triggering a Service level auto scale rule. This causes additional container instances to be spun up on the other Nodes in the CLuster to handle the load, and once the load dies down, these container instances are removed.
+Azure Service Fabric provides orchestration services for Applications deployed as Docker containers, along with Service level autoscaling. In this example, a Web API is built using ASP.NET Core 2.0, packaged using Docker containers for Linux and deployed to an Azure Service Cluster. A Load Test is run on the REST API to generate CPU load on the Container hosting it, thereby triggering a Service level auto scale rule. This causes additional container instances to be spun up on the other Nodes in the Custer to handle the load, and once the load dies down, these container instances are removed.
 
 ## Creating the Service Fabric Cluster 
 *(mandatory step to run this sample)*
@@ -73,7 +73,7 @@ The Docker container has been uploaded to Docker Hub and referenced in the Servi
 Navigate to the folder where this Github Repository is cloned to. The 'app-packages' folder contains the Application packages in the sample. Use GitBash or other tools to deploy the Service Fabric Application. 
 
 ### Key configurations implemented in the package for auto scaling
-- For autoscaling to work, the ServicePackageActivationMode needs to be set to 'Exclusive' (the default mode is 'shared')
+- For autoscaling to work, the ServicePackageActivationMode needs to be set to 'ExclusiveProcess' (the default mode is 'shared')
 - The autoscale trigger rule and metric name and threshold values need to be specified. Refer to https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-resource-manager-autoscaling for details.
 - The instance count for the Service type is set to 1. When the auto scale kicks in, more instances of the container would be activated in the Service Fabric Cluster.
 
