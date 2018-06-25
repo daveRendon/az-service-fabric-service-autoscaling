@@ -1,6 +1,7 @@
-# az-service-fabric-service-autoscaling
-Demonstration of Service level auto scaling in Azure Service Fabric.
-Azure Service Fabric provides orchestration services for Applications deployed as Docker containers, along with Service type instance level autoscaling. In this example, a Web API is built using ASP.NET Core 2.0, packaged using Docker containers for Linux and deployed to an Azure Service Cluster. 
+# azure service fabric - service autoscaling feature
+This article Demonstrates Service auto scaling in Azure Service Fabric.
+Azure Service Fabric provides orchestration services for Applications deployed as Docker containers, along with Service level autoscaling. In this example, a Web API is built using ASP.NET Core 2.0, packaged using Docker containers for Linux and deployed to an Azure Service Cluster. A Load Test is run on the REST API to generate CPU load on the Container hosting it, thereby triggering a Service level auto scale rule. This causes additional container instances to be spun up on the other Nodes in the CLuster to handle the load, and once the load dies down, these container instances are removed.
+
 ## Creating the Service Fabric Cluster 
 *(mandatory step to run this sample)*
 
