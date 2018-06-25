@@ -5,7 +5,7 @@ Azure Service Fabric provides orchestration services for Applications deployed a
 *(mandatory step to run this sample)*
 
 This feature requires version 6.2.194.1+ of Azure Service Fabric, and enabling the 'Resource Monitor Service' on the Cluster. Since the Azure Portal does not provde an option enable this Service at this time, I am using an ARM Template (1-Nodetype-elb-SFCluster-oms.json) that deploys a cluster with this feature enabled. 
-*The VM Size of D1_v2 is used in this ARM Template to easily simulate the CPU load leading to an auto scale trigger*
+*The VM Size of D1_v2 is used in this ARM Template to easily simulate the CPU load leading to an auto scale rule trigger*
 
 To run this ARM Template, you would require the following handy that is specific to your Azure Subscription:
 1. The Key Vault URL
