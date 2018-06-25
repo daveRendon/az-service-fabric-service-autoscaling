@@ -141,11 +141,11 @@ Observe the Service Fabric Explorer as the test progresses. After some time, you
 
 Launch the OMS Workspace and launch the Container Logs and Service Fabric Solutions (these were deployed in the OMS Workspace when the ARM Template was run).
 
-The screen shot below shows how over the course of the Load Test, additional container instances were deployed in the other Nodes in the Cluster, on trigger of the auto scaling rules.
+The screen shot below shows how over the course of the Load Test, additional container instances were deployed in the other Nodes in the Cluster, on trigger of the auto scaling rules. Once the Load came down on completion of the Test, the additional container instances were removed by the auto scaling rule.
 
 <img src="./images/autoscaleservice.PNG" alt="drawing" height="500px"/>
 
 Below is a screen shot from the Container log Solution in OMS, for the duration when the Load test was run.
 
-<img src="./images/Containerlogs.PNG" alt="drawing" height="500px"/>
+<img src="./images/Containerlogs.PNG" alt="drawing" height="350px"/>
 
